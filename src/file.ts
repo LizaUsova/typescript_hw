@@ -1,8 +1,17 @@
-const arr = [1, 2, 3];
-function reverseArray (arr: number[]): number[] {
-    return arr.reverse()
+function reverseArray(arr: number[]): number[] {
+    const length = arr.length;
+
+    for (let i = 0; i < length / 2; i++) {
+        const temp = arr[i];
+        arr[i] = arr[length - 1 - i];
+        arr[length - 1 - i] = temp;
+    }
+
+    return arr;
 }
 
-const reversedArr = reverseArray(arr)
+const arr: number[] = [1, 2, 3];
+const reversedArr = reverseArray(arr);
+
 console.log(reversedArr === arr);
-console.log(reversedArr);
+
