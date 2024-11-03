@@ -95,3 +95,28 @@ function getFullName (person: Person): string {
 }
 
 console.log(getFullName(person));
+
+/* 4. Створення інтерфейсу для зчитування налаштувань */
+
+interface Settings {
+    theme: 'light' | 'dark';
+    notifications: boolean;
+    autoSave: {
+        enabled: boolean;
+        interval: number;
+    }
+}
+
+function applySettings(settings: Settings) {
+    if (settings.notifications) {
+        console.log("Повідомлення увімкнено.");
+    } else {
+        console.log("Повідомлення вимкнено.");
+    }
+
+    if (settings.autoSave.enabled) {
+        console.log(`Авто збереження увімкнено. Інтервал: ${settings.autoSave.interval} мс.`);
+    } else {
+        console.log("Авто збереження вимкнено.");
+    }
+}

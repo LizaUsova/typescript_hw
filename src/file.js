@@ -46,3 +46,17 @@ function getFullName(person) {
     return "Ключ middleName відсутен";
 }
 console.log(getFullName(person));
+function applySettings(settings) {
+    if (settings.notifications) {
+        console.log("Повідомлення увімкнено.");
+    }
+    else {
+        console.log("Повідомлення вимкнено.");
+    }
+    if (settings.autoSave.enabled) {
+        console.log(`Авто збереження увімкнено. Інтервал: ${settings.autoSave.interval} мс.`);
+    }
+    else {
+        console.log("Авто збереження вимкнено.");
+    }
+}
