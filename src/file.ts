@@ -25,3 +25,49 @@ const user: UserWithAddress = {
 };
 
 console.log(user);
+
+/*2. Створення типів для даних із вкладеними інтерфейсами */
+
+interface Product  {
+    name: string;
+    price: number;
+    category: {
+        categoryName: string;
+        categoryId: string;
+    }
+}
+
+interface Order {
+    orderId: string;
+    userId: string;
+    products: Product[];
+}
+
+type OrdersArray = Order[];
+
+const orders: OrdersArray = [
+    {
+        orderId: "ORD001",
+        userId: "USER123",
+        products: [
+            {
+                name: "Laptop",
+                price: 999.99,
+                category: { categoryName: "Electronics", categoryId: "CAT001" }
+            }
+        ]
+    },
+    {
+        orderId: "ORD002",
+        userId: "USER456",
+        products: [
+            {
+                name: "Mouse",
+                price: 29.99,
+                category: { categoryName: "Accessories", categoryId: "CAT002" }
+            }
+        ]
+    }
+];
+
+console.log(orders);

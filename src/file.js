@@ -9,3 +9,28 @@ const user = {
     email: "liza.usova@gmail.com"
 };
 console.log(user);
+const orders = [
+    {
+        orderId: "ORD001",
+        userId: "USER123",
+        products: [
+            {
+                name: "Laptop",
+                price: 999.99,
+                category: { categoryName: "Electronics", categoryId: "CAT001" }
+            }
+        ]
+    },
+    {
+        orderId: "ORD002",
+        userId: "USER456",
+        products: [
+            {
+                name: "Mouse",
+                price: 29.99,
+                category: { categoryName: "Accessories", categoryId: "CAT002" }
+            }
+        ]
+    }
+];
+console.log(orders);
