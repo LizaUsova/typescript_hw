@@ -34,3 +34,15 @@ const orders = [
     }
 ];
 console.log(orders);
+const person = {
+    firstName: 'Liza',
+    lastName: 'Usova',
+    middleName: 'maybe'
+};
+function getFullName(person) {
+    if (person.middleName) {
+        return `${person.firstName} ${person.middleName} ${person.lastName}`;
+    }
+    return "Ключ middleName відсутен";
+}
+console.log(getFullName(person));

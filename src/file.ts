@@ -71,3 +71,27 @@ const orders: OrdersArray = [
 ];
 
 console.log(orders);
+
+/* 3. Обов'язкові та необов'язкові поля */
+
+interface Person {
+    firstName: string;
+    lastName: string;
+    middleName?: string;
+}
+
+const person: Person = {
+    firstName: 'Liza',
+    lastName: 'Usova',
+    middleName: 'maybe'
+}
+
+function getFullName (person: Person): string {
+    if (person.middleName) {
+        return `${person.firstName} ${person.middleName} ${person.lastName}`
+    }
+
+    return "Ключ middleName відсутен"
+}
+
+console.log(getFullName(person));
