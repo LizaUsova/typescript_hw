@@ -1,18 +1,5 @@
-interface Student {
-    id: string,
-    name: string,
-    age: number
-}
-
-type Subject = "Math" | "Science" | "Literature" | "History";
-type Grades = Record<Subject, number>;
-
-interface UniversityRecord {
-    students: Record<string, Student>,
-    grades: Record<string, Grades>
-}
-
-const universityRecord: UniversityRecord = {
+"use strict";
+const universityRecord = {
     students: {
         "001": {
             id: "001",
@@ -62,34 +49,26 @@ const universityRecord: UniversityRecord = {
         },
     },
 };
-
-let getStudentGrades = (universityRecord: UniversityRecord, studentId: string): Grades | null => {
+let getStudentGrades = (universityRecord, studentId) => {
     if (universityRecord.grades[studentId]) {
         return universityRecord.grades[studentId];
     }
     return null;
-}
-
-const grades = getStudentGrades(universityRecord, "001")
-
-let getAverageGrade = (universityRecord: UniversityRecord, subject: Subject): number => {
+};
+const grades = getStudentGrades(universityRecord, "001");
+let getAverageGrade = (universityRecord, subject) => {
     let totalGrade = 0;
     let studentCount = 0;
-
     for (const studentId in universityRecord.grades) {
         if (universityRecord.grades.hasOwnProperty(studentId)) {
             const grades = universityRecord.grades[studentId];
-
             totalGrade += grades[subject];
             studentCount++;
         }
     }
-
     if (studentCount === 0) {
         return 0;
     }
-
     return totalGrade / studentCount;
-}
-
+};
 const averageMathGrade = getAverageGrade(universityRecord, "Math");
