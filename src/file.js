@@ -1,26 +1,20 @@
-enum OrderStatus {
-    Pending = 'Pending',
-    Processing = 'Processing',
-    Shipped = 'Shipped',
-    Delivered = 'Delivered',
-    Canceled = 'Canceled'
-}
-
-enum PaymentType {
-    CreditCard = 'CreditCard',
-    PayPal = 'PayPal',
-    BankTransfer = 'BankTransfer',
-    CashOnDelivery = 'CashOnDelivery'
-}
-
-interface Order {
-    id: string,
-    amount: number,
-    status: OrderStatus,
-    paymentType: PaymentType
-}
-
-const orders: Order[] = [
+"use strict";
+var OrderStatus;
+(function (OrderStatus) {
+    OrderStatus["Pending"] = "Pending";
+    OrderStatus["Processing"] = "Processing";
+    OrderStatus["Shipped"] = "Shipped";
+    OrderStatus["Delivered"] = "Delivered";
+    OrderStatus["Canceled"] = "Canceled";
+})(OrderStatus || (OrderStatus = {}));
+var PaymentType;
+(function (PaymentType) {
+    PaymentType["CreditCard"] = "CreditCard";
+    PaymentType["PayPal"] = "PayPal";
+    PaymentType["BankTransfer"] = "BankTransfer";
+    PaymentType["CashOnDelivery"] = "CashOnDelivery";
+})(PaymentType || (PaymentType = {}));
+const orders = [
     {
         id: "001",
         amount: 150.00,
@@ -52,18 +46,15 @@ const orders: Order[] = [
         paymentType: PaymentType.CreditCard
     }
 ];
-
-let updateOrderStatus = (order: Order, status: OrderStatus): void => {
+let updateOrderStatus = (order, status) => {
     const oldStatus = order.status;
     order.status = status;
-
     console.log(`Order ID: ${order.id} status updated from ${oldStatus} to ${status}`);
-}
-const order1: Order = {
+};
+const order1 = {
     id: "001",
     amount: 150.00,
     status: OrderStatus.Pending,
     paymentType: PaymentType.CreditCard
 };
-
 updateOrderStatus(order1, OrderStatus.Processing);
