@@ -59,11 +59,12 @@ let updateOrderStatus = (order: Order, status: OrderStatus): void => {
 
     console.log(`Order ID: ${order.id} status updated from ${oldStatus} to ${status}`);
 }
-const order1: Order = {
-    id: "001",
-    amount: 150.00,
-    status: OrderStatus.Pending,
-    paymentType: PaymentType.CreditCard
-};
 
-updateOrderStatus(order1, OrderStatus.Processing);
+function getOrdersByStatus(orders: Order[], status: OrderStatus): Order[] {
+    return orders.filter(order => order.status === status);
+}
+
+updateOrderStatus(orders[0], OrderStatus.Processing);
+
+const pendingOrders = getOrdersByStatus(orders, OrderStatus.Pending);
+console.log("Pending Orders:", pendingOrders);
