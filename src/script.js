@@ -48,3 +48,42 @@ constructor(name, email, password) {
         }
     }
 }
+
+class Course {
+    static nextId = 1;
+    #students
+    constructor(name, teacher) {
+        this.id = Course.nextId++;
+        this.name = name;
+        this.teacher = teacher;
+        this.#students = [];
+    }
+
+    addStudent(student) {
+        if (!this.#students.some(s => s.id === student.id)) {
+            this.#students.push(student);
+        } else {
+            console.log(`Student "${student.name}" is already enrolled in the course "${this.name}"`);
+        }
+    }
+
+    removeStudent(studentId) {
+        const initialLength = this.#students.length;
+        this.#students = this.#students.filter(student => student.id !== studentId);
+
+        if (this.#students.length < initialLength) {
+            console.log(`Student with ID: ${studentId} removed from the course "${this.name}".`);
+        } else {
+            console.log(`Student with ID: ${studentId} is not found in the course "${this.name}".`);
+        }
+    }
+
+    listStudents() {
+        if (this.#students.length === 0) {
+            console.log(`No students are enrolled in the course "${this.name}".`);
+        } else {
+            console.log(`Students enrolled in the course "${this.name}":`);
+            this.#students.forEach(student => console.log(`- ${student.info}`));
+        }
+    }
+}
