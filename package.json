@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc ./src/*.ts",
     "tsc": "tsc -t es5"
   },
   "author": "Liza Usova",
