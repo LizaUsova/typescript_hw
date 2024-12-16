@@ -1,5 +1,13 @@
-class User {
+import BaseModel from "./BaseModel.js";
+
+class User extends BaseModel{
     static #currentId = 1;
+
+    static userTypes = {
+        STUDENT: 'student',
+        TEACHER: 'teacher',
+        DEFAULT: 'user'
+    }
 
     static passwordStrength = Object.freeze({
         WEAK: 'weak',
@@ -19,20 +27,44 @@ class User {
         }
     }
 
-    constructor({name, email}) {
+    constructor({name, email, type}) {
+        super();
         this.name = name;
         this.email = email;
         this.#id = User.#currentId;
+
+        if(Object.values(User.userTypes).includes(type)) {
+            this.#type = type;
+        }
+
         User.#currentId +=1;
     }
 
     #id = 0;
     #pass = null;
+    #type = User.userTypes.default;
+    #email = null;
+
     name = null;
-    email = null;
+
+    set email(value) {
+        if(value.includes('@')) {
+            this.#email = value;
+        } else {
+            throw new Error('Email is invalid')
+        }
+    }
+
+    get email() {
+        return this.#email;
+    }
+
+    get type() {
+        return this.#type;
+    }
 
     get id() {
-        return this.#id
+        return this.#id;
     }
 
     get info() {
