@@ -1,122 +1,36 @@
-/* 1. Розширення та об'єднання інтерфейсів */
+import { Order} from "./interfaces";
+import { OrderStatus, PaymentType } from "./enums";
 
-interface Address {
-    street: string;
-    city: string;
-    zipCode: number;
-}
-
-interface User {
-    name: string;
-    age: number;
-}
-
-interface UserWithAddress extends Address, User {
-    email: string;
-}
-
-const user: UserWithAddress = {
-    name: "Liza",
-    age: 37,
-    street: "Mechnikova",
-    city: "Odessa",
-    zipCode: 65000,
-    email: "liza.usova@gmail.com"
-};
-
-console.log(user);
-
-/*2. Створення типів для даних із вкладеними інтерфейсами */
-
-interface Product  {
-    name: string;
-    price: number;
-    category: {
-        categoryName: string;
-        categoryId: string;
-    }
-}
-
-interface Order {
-    orderId: string;
-    userId: string;
-    products: Product[];
-}
-
-type OrdersArray = Order[];
-
-const orders: OrdersArray = [
+const orders: Order[] = [
     {
-        orderId: "ORD001",
-        userId: "USER123",
-        products: [
-            {
-                name: "Laptop",
-                price: 999.99,
-                category: { categoryName: "Electronics", categoryId: "CAT001" }
-            }
-        ]
+        id: "ORD001",
+        amount: 150.75,
+        status: OrderStatus.Pending,
+        paymentType: PaymentType.CreditCard
     },
     {
-        orderId: "ORD002",
-        userId: "USER456",
-        products: [
-            {
-                name: "Mouse",
-                price: 29.99,
-                category: { categoryName: "Accessories", categoryId: "CAT002" }
-            }
-        ]
+        id: "ORD002",
+        amount: 299.99,
+        status: OrderStatus.Shipped,
+        paymentType: PaymentType.PayPal
+    },
+    {
+        id: "ORD003",
+        amount: 79.5,
+        status: OrderStatus.Processing,
+        paymentType: PaymentType.CashOnDelivery
     }
 ];
 
-console.log(orders);
+const updateOrderStatus = (order: Order, status: OrderStatus): void => {
+    order.status = status;
+    console.log(`Замовлення ${order.id} змінено на статус: ${status}`);
+};
 
-/* 3. Обов'язкові та необов'язкові поля */
+const getOrdersByStatus = (orders: Order[], status: OrderStatus): Order[] =>
+    orders.filter(order => order.status === status);
 
-interface Person {
-    firstName: string;
-    lastName: string;
-    middleName?: string;
-}
-
-const person: Person = {
-    firstName: 'Liza',
-    lastName: 'Usova',
-    middleName: 'maybe'
-}
-
-function getFullName (person: Person): string {
-    if (person.middleName) {
-        return `${person.firstName} ${person.middleName} ${person.lastName}`
-    }
-
-    return "Ключ middleName відсутен"
-}
-
-console.log(getFullName(person));
-
-/* 4. Створення інтерфейсу для зчитування налаштувань */
-
-interface Settings {
-    theme: 'light' | 'dark';
-    notifications: boolean;
-    autoSave: {
-        enabled: boolean;
-        interval: number;
-    }
-}
-
-function applySettings(settings: Settings) {
-    if (settings.notifications) {
-        console.log("Повідомлення увімкнено.");
-    } else {
-        console.log("Повідомлення вимкнено.");
-    }
-
-    if (settings.autoSave.enabled) {
-        console.log(`Авто збереження увімкнено. Інтервал: ${settings.autoSave.interval} мс.`);
-    } else {
-        console.log("Авто збереження вимкнено.");
-    }
-}
+// Тестування функцій
+console.log("Всі замовлення:", orders);
+updateOrderStatus(orders[0], OrderStatus.Processing);
+console.log("Замовлення зі статусом Processing:", getOrdersByStatus(orders, OrderStatus.Processing));

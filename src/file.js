@@ -1,62 +1,32 @@
 "use strict";
-/* 1. Розширення та об'єднання інтерфейсів */
-const user = {
-    name: "Liza",
-    age: 37,
-    street: "Mechnikova",
-    city: "Odessa",
-    zipCode: 65000,
-    email: "liza.usova@gmail.com"
-};
-console.log(user);
+Object.defineProperty(exports, "__esModule", { value: true });
+const enums_1 = require("./enums");
 const orders = [
     {
-        orderId: "ORD001",
-        userId: "USER123",
-        products: [
-            {
-                name: "Laptop",
-                price: 999.99,
-                category: { categoryName: "Electronics", categoryId: "CAT001" }
-            }
-        ]
+        id: "ORD001",
+        amount: 150.75,
+        status: enums_1.OrderStatus.Pending,
+        paymentType: enums_1.PaymentType.CreditCard
     },
     {
-        orderId: "ORD002",
-        userId: "USER456",
-        products: [
-            {
-                name: "Mouse",
-                price: 29.99,
-                category: { categoryName: "Accessories", categoryId: "CAT002" }
-            }
-        ]
+        id: "ORD002",
+        amount: 299.99,
+        status: enums_1.OrderStatus.Shipped,
+        paymentType: enums_1.PaymentType.PayPal
+    },
+    {
+        id: "ORD003",
+        amount: 79.5,
+        status: enums_1.OrderStatus.Processing,
+        paymentType: enums_1.PaymentType.CashOnDelivery
     }
 ];
-console.log(orders);
-const person = {
-    firstName: 'Liza',
-    lastName: 'Usova',
-    middleName: 'maybe'
+const updateOrderStatus = (order, status) => {
+    order.status = status;
+    console.log(`Замовлення ${order.id} змінено на статус: ${status}`);
 };
-function getFullName(person) {
-    if (person.middleName) {
-        return `${person.firstName} ${person.middleName} ${person.lastName}`;
-    }
-    return "Ключ middleName відсутен";
-}
-console.log(getFullName(person));
-function applySettings(settings) {
-    if (settings.notifications) {
-        console.log("Повідомлення увімкнено.");
-    }
-    else {
-        console.log("Повідомлення вимкнено.");
-    }
-    if (settings.autoSave.enabled) {
-        console.log(`Авто збереження увімкнено. Інтервал: ${settings.autoSave.interval} мс.`);
-    }
-    else {
-        console.log("Авто збереження вимкнено.");
-    }
-}
+const getOrdersByStatus = (orders, status) => orders.filter(order => order.status === status);
+// Тестування функцій
+console.log("Всі замовлення:", orders);
+updateOrderStatus(orders[0], enums_1.OrderStatus.Processing);
+console.log("Замовлення зі статусом Processing:", getOrdersByStatus(orders, enums_1.OrderStatus.Processing));
